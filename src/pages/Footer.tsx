@@ -9,7 +9,6 @@ function Footer() {
         <Link to="faq">FAQ</Link>
         <Link to="terms">Terms of Service</Link>
         <Link to="privacy">Privacy Policy</Link>
-        {/* <Link to="contact">Contact</Link> */}
         <Link to="shipping">Shipping</Link>
       </div>
     </div>

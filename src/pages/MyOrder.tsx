@@ -1,23 +1,7 @@
 import React, { useState } from "react";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import {
-  Timestamp,
-  collection,
-  addDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-  doc,
-  getDoc,
-} from "firebase/firestore";
-import { storage, db } from "../firebase";
+
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import "../styles/MyOrder.css";
 import pic from "../images/order1.png";
 //SiZiiPCaH49OEpIUSc7y
@@ -25,8 +9,6 @@ import pic from "../images/order1.png";
 function MyOrder() {
   const [id, setId] = useState<string>("");
   const [verified, setVerified] = useState<boolean>(false);
-  const [name, setName] = useState<string>();
-  const [tracking, setTracking] = useState<string>();
   const [orderInfo, setOrderInfo] = useState<infoI>();
   interface infoI {
     name: string;
@@ -51,25 +33,10 @@ function MyOrder() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       let data: any = docSnap.data();
       setOrderInfo(data);
       setVerified(true);
-      setName(data.name);
-      setTracking(data.tracking);
-      // setOrderInfo(
-      //   docSnap.data().map((d: any) => {
-      //     return {
-      //       name: d.name,
-      //       addOn: d.addOn,
-      //       price: d.price,
-      //       tracking: d.tracking,
-      //       createDate: d.createDate,
-      //     };
-      //   })
-      // );
     } else {
-      // doc.data() will be undefined in this case
       alert("Order does not exist");
     }
   };
@@ -78,16 +45,16 @@ function MyOrder() {
     <div className="myorderP page">
       {verified ? (
         <div className="myorder">
-          {tracking ? (
+          {orderInfo?.tracking ? (
             <div className="myorder-tracking">
               <span>
                 Your box is on its way! <br />
                 Tracking:{" "}
                 <a
                   target="_blank"
-                  href={`https://www.dhl.com/de-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=${tracking}`}
+                  href={`https://www.dhl.com/de-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=${orderInfo?.tracking}`}
                 >
-                  {tracking}
+                  {orderInfo?.tracking}
                 </a>
               </span>
             </div>

@@ -1,5 +1,6 @@
 import React, { Component, useRef, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import main from "../images/main.png";
 import turtleChip from "../images/turtleChip.png";
 import btsCoffee from "../images/btsCoffee.png";
@@ -39,6 +40,8 @@ import "slick-carousel/slick/slick-theme.css";
 function Home() {
   const [orderDetail, setOrderDetail] = useState("detail");
   const featuresRef = useRef<null | HTMLDivElement>(null);
+  const navigate = useNavigate();
+
   const handleScroll = () => {
     featuresRef?.current?.scrollIntoView({
       behavior: "smooth",
@@ -95,22 +98,6 @@ function Home() {
     },
   ];
   const orderImg = [order1, order2, order3, order4, order5, order6, order7];
-
-  // const navLeftBtn = document.querySelectorAll(".order-right-detail-btn");
-  // const navLeftIndicator = document.getElementById(
-  //   "#order-right-detail-btn-indicator "
-  // );
-
-  // navLeftBtn.forEach((btn) =>
-  //   btn.addEventListener("click", (e: Event) => showIndicator(e))
-  // );
-
-  // const showIndicator = (e: any) => {
-  //   navLeftIndicator!.style.left = e.currentTarget.offsetLeft + "px";
-  //   navLeftIndicator!.style.top = e.currentTarget.offsetTop + "px";
-  //   navLeftIndicator!.style.width = e.currentTarget.offsetWidth + "px";
-  //   e.currentTarget.style.color = "white";
-  // };
 
   const navLeftBtn = document.querySelectorAll<HTMLElement>(
     ".product-right-detail-btn"
@@ -253,7 +240,13 @@ function Home() {
           </span>
           <div className="product-right-price">
             <h3>€27.30</h3>
-            <button>Get Gwaja Box</button>
+            <button
+              onClick={() => {
+                navigate("/order");
+              }}
+            >
+              Get Gwaja Box
+            </button>
           </div>
           <div className="product-right-detail">
             <div>

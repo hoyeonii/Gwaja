@@ -1,37 +1,21 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import {
-  Timestamp,
-  collection,
-  addDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-  doc,
-} from "firebase/firestore";
-import { storage, db } from "../firebase";
+import React, { useEffect, useState } from "react";
+
 import "../styles/Order.css";
 import order1 from "../images/order1.png";
 import "../types/index.d.ts";
 import { Link, useNavigate } from "react-router-dom";
-import CheckOut from "./CheckOut";
 
 function Order() {
   const [euList, setEuList] = useState<listType[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<string>("Gwaja Box");
+  const [price, setPrice] = useState<number>(29.5);
   const [addressInfo, setAddressInfo] = useState<AddressInfoT>({
     receiver: "",
     country: "Germany",
   });
-  const [selectedProduct, setSelectedProduct] = useState<string>("Gwaja Box");
-  const [price, setPrice] = useState<number>(29.5);
+
   const navigate = useNavigate();
+
   type listType = {
     flag: string;
     name: string;
@@ -44,6 +28,10 @@ function Order() {
     { product: "Gwaja Box with K-merch", price: 33.5 },
   ];
 
+  useEffect(() => {
+    getEUList();
+  }, []);
+
   async function getEUList() {
     const response = await fetch(
       "https://restcountries.com/v2/regionalbloc/eu"
@@ -51,9 +39,6 @@ function Order() {
     var data = await response.json();
     setEuList(data);
   }
-  useEffect(() => {
-    getEUList();
-  }, []);
 
   const placeOrder = (e: any) => {
     e.preventDefault();
@@ -61,6 +46,7 @@ function Order() {
       state: { ...addressInfo, price, selectedProduct },
     });
   };
+
   return (
     <div className="order page">
       <div className="order-product">
@@ -96,11 +82,9 @@ function Order() {
           id="form"
           onSubmit={placeOrder}
           onChange={(e: any) => {
-            // const [name, value] = e.target;
             let name = e.target.id;
             let value = e.target.value;
             setAddressInfo({ ...addressInfo, [name]: value });
-            console.log(name, value);
           }}
           autoComplete="on"
         >
@@ -128,12 +112,7 @@ function Order() {
             <input id="postalCode" placeholder="Postal Code" required />
           </div>
 
-          {/* <Link
-            to="/checkOut"
-            state={{ ...addressInfo, price, selectedProduct }}
-          > */}
           <button id="subminBtn">Submit</button>
-          {/* </Link> */}
         </form>
       </div>
     </div>

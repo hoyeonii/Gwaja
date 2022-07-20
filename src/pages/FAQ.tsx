@@ -18,14 +18,12 @@ function FAQ() {
         <Collapsible trigger="Which countries do you ship to?">
           <p>
             This homepage is only for orders to EU countries. Please visit our
-            {"  "}
             <a
               target="_blank"
               href="https://www.etsy.com/listing/1029250115/korean-snack-gift-box?click_key=16eb7b9fcc8a406d1262f4ab6c3eaceb8a3338f5%3A1029250115&click_sum=e5588ff4&ref=shop_home_feat_3&frs=1"
             >
               Etsy Shop
             </a>
-            {"  "}
             to ship to other regions.
           </p>
         </Collapsible>
