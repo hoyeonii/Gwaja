@@ -4,7 +4,7 @@
 .checkOut .order-product {
   padding-bottom: 3%;
 }
-.paypal > div:last-child {
+.paypal > div:first-child {
   display: none !important;
 }
 

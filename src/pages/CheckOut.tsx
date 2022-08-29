@@ -61,8 +61,7 @@ function CheckOut() {
                 description: data.selectedProduct,
                 amount: {
                   currency_code: "EUR",
-                  value:
-                    data.selectedProduct.includes("with") < 0 ? 29.5 : 33.5,
+                  value: 33.5,
                 },
               },
             ],
